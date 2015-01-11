@@ -1,2 +1,5 @@
+3.1.11-r1:
+- Updated qBittorent icon (by loopim)
+
 3.1.11:
 - Initial release
