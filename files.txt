@@ -1,0 +1,7 @@
+/usr/bin/qbittorrent-nox
+/usr/lib/libboost_system.so
+/usr/lib/libQtSolutions_LockedFile-2.4.so
+/usr/lib/libQtSolutions_SingleApplication-2.6.so
+/usr/lib/libtorrent-rasterbar.so
+/usr/lib/qt4/libQtCore.so
+/usr/lib/qt4/libQtNetwork.so

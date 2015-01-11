@@ -1,0 +1,23 @@
+The qBittorrent project aims to provide a Free Software alternative to µtorrent. Additionally, qBittorrent runs and provides the same features on all major platforms (Linux, Mac OS X, Windows, OS/2, FreeBSD).
+
+qBittorrent is based on Qt4 toolkit and libtorrent-rasterbar.
+
+Default username and password (same as qBittorrent uses by default):
+username: admin
+password: adminadmin
+
+qBittorrent Features (on Asustor)
+
+* All Bittorrent extensions
+* DHT, Peer Exchange, Full encryption, Magnet/BitComet URIs, ...
+* Remote control through a Web user interface
+*** Nearly identical to the regular UI, all in Ajax
+* Advanced control over trackers, peers and torrents
+*** Torrents queueing and prioritizing
+*** Torrent content selection and prioritizing
+* UPnP / NAT-PMP port forwarding support
+* Available in ~25 languages (Unicode support)
+* Bandwidth scheduler
+* IP Filtering (eMule and PeerGuardian compatible)
+* IPv6 compliant
+* Sequential downloading (aka "Download in order")

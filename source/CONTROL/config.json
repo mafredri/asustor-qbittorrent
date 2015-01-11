@@ -1,0 +1,36 @@
+{
+  "general": {
+    "package": "qbittorrent",
+    "name": "qBittorrent",
+    "version": "APKG_VERSION",
+    "depends": [],
+    "conflicts": [],
+    "developer": "The qBittorrent project",
+    "maintainer": "mafredri",
+    "email": "mafredri+adm@gmail.com",
+    "website": "http://www.qbittorrent.org/",
+    "architecture": "ADM_ARCH",
+    "firmware": "2.2.0"
+  },
+  "adm-desktop": {
+    "app": {
+      "port": 8181,
+      "protocol": "http",
+      "type": "custom",
+      "url": "/"
+    },
+    "privilege": {
+      "accessible": "users",
+      "customizable": true
+    }
+  },
+  "register": {
+    "boot-priority": {
+      "stop-order": 80,
+      "start-order": 20
+    },
+    "port": [
+      8181
+    ]
+  }
+}

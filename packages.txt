@@ -1,0 +1,6 @@
+dev-libs/boost
+dev-qt/qtcore
+dev-qt/qtlockedfile
+dev-qt/qtsingleapplication
+net-libs/rb_libtorrent
+net-p2p/qbittorrent
