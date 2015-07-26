@@ -1,18 +1,18 @@
 #!/bin/sh
 
-if [ -z $APKG_PKG_DIR ]; then
+if [ -z "$APKG_PKG_DIR" ]; then
     PKG_DIR=/usr/local/AppCentral/qbittorrent
 else
     PKG_DIR=$APKG_PKG_DIR
 fi
 
-if [ $(uname -m) == "x86_64" ]; then
+if [ "$(uname -m)" = "x86_64" ]; then
     AS_NAS_ARCH="x86-64"
 else
     AS_NAS_ARCH="i386"
 fi
 
-source $PKG_DIR/CONTROL/env.sh
+. "${PKG_DIR}/CONTROL/env.sh"
 
 case "${APKG_PKG_STATUS}" in
     install)
@@ -23,11 +23,11 @@ case "${APKG_PKG_STATUS}" in
         ;;
 esac
 
-(cd $PKG_DIR; for i in $AS_NAS_ARCH/*; do ln -sf $i ./; done)
+(cd "$PKG_DIR"; for i in $AS_NAS_ARCH/*; do ln -sf "$i" ./; done)
 
-if [ ! -d ${CONFIG} ]; then
-    su - $USER -c "mkdir -p ${CONFIG}"
-    su - $USER -c "cp ${PKG_DIR}/config/* ${CONFIG}/"
+if [ ! -d "${CONFIG}" ]; then
+    su - "$USER" -c "mkdir -p '${CONFIG}'"
+    su - "$USER" -c "cp '${PKG_DIR}'/config/* '${CONFIG}'/"
 fi
 
 # Install SSL keys (disabled for now...)

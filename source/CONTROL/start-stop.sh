@@ -3,7 +3,7 @@
 NAME=qBittorrent
 PACKAGE=qbittorrent
 
-if [ -z $APKG_PKG_DIR ]; then
+if [ -z "$APKG_PKG_DIR" ]; then
 	PKG_DIR="/usr/local/AppCentral/${PACKAGE}"
 else
 	PKG_DIR=$APKG_PKG_DIR
@@ -13,7 +13,7 @@ DAEMON="qbittorrent-nox"
 OPTS="--webui-port=8181"
 PIDFILE="/var/run/${PACKAGE}.pid"
 
-source $PKG_DIR/CONTROL/env.sh
+. "$PKG_DIR/CONTROL/env.sh"
 
 CHUID=${USER}:${GROUP}
 
@@ -22,22 +22,22 @@ start_daemon() {
     umask 0
 
     export LD_PRELOAD=/usr/lib/preloadable_libiconv.so
-	start-stop-daemon -S --quiet --background --make-pidfile --pidfile ${PIDFILE} --chuid "${CHUID}" --user ${USER} --exec ${DAEMON} -- ${OPTS}
+	start-stop-daemon -S --quiet --background --make-pidfile --pidfile ${PIDFILE} --chuid "${CHUID}" --user "${USER}" --exec ${DAEMON} -- ${OPTS}
 }
 
 stop_daemon() {
-	start-stop-daemon -K --quiet --user ${USER} --pidfile ${PIDFILE}
+	start-stop-daemon -K --quiet --user "${USER}" --pidfile ${PIDFILE}
 
 	wait_for_status 1 20
 
-	if [$? -eq 1 ]; then
+	if [ $? -eq 1 ]; then
 		echo "Taking too long, killing service..."
-		start-stop-daemon -K --signal 9 --quiet --user ${USER} --pidfile ${PIDFILE}
+		start-stop-daemon -K --signal 9 --quiet --user "${USER}" --pidfile ${PIDFILE}
 	fi
 }
 
 daemon_status() {
-    start-stop-daemon -K --quiet --test --user ${USER} --pidfile ${PIDFILE}
+    start-stop-daemon -K --quiet --test --user "${USER}" --pidfile ${PIDFILE}
     RETVAL=$?
 
     [ ${RETVAL} -eq 0 ] || return 1
@@ -45,10 +45,10 @@ daemon_status() {
 
 wait_for_status() {
     counter=$2
-    while [ ${counter} -gt 0 ]; do
+    while [ "${counter}" -gt 0 ]; do
         daemon_status
-        [ $? -eq $1 ] && return
-        let counter=counter-1
+        [ $? -eq "$1" ] && return
+		counter=$(( counter - 1 ))
         sleep 1
     done
     return 1
