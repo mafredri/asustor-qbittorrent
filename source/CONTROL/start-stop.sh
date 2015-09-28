@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 NAME=qBittorrent
 PACKAGE=qbittorrent
@@ -18,10 +18,10 @@ PIDFILE="/var/run/${PACKAGE}.pid"
 CHUID=${USER}:${GROUP}
 
 start_daemon() {
-    # Set umask to create files with world r/w
-    umask 0
+	# Set umask to create files with world r/w
+	umask 0
 
-    export LD_PRELOAD=/usr/lib/preloadable_libiconv.so
+	export LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 	start-stop-daemon -S --quiet --background --make-pidfile --pidfile ${PIDFILE} --chuid "${CHUID}" --user "${USER}" --exec ${DAEMON} -- ${OPTS}
 }
 
@@ -37,40 +37,40 @@ stop_daemon() {
 }
 
 daemon_status() {
-    start-stop-daemon -K --quiet --test --user "${USER}" --pidfile ${PIDFILE}
-    RETVAL=$?
+	start-stop-daemon -K --quiet --test --user "${USER}" --pidfile ${PIDFILE}
+	RETVAL=$?
 
-    [ ${RETVAL} -eq 0 ] || return 1
+	[ $RETVAL -eq 0 ] || return 1
 }
 
 wait_for_status() {
-    counter=$2
-    while [ "${counter}" -gt 0 ]; do
-        daemon_status
-        [ $? -eq "$1" ] && return
+	counter=$2
+	while [ "${counter}" -gt 0 ]; do
+		daemon_status
+		[ $? -eq "$1" ] && return
 		counter=$(( counter - 1 ))
-        sleep 1
-    done
-    return 1
+		sleep 1
+	done
+	return 1
 }
 
 case $1 in
 	start)
 		if daemon_status; then
-            echo "${NAME} is already running"
-        else
-            echo "Starting ${NAME}..."
-            start_daemon
-        fi
+			echo "${NAME} is already running"
+		else
+			echo "Starting ${NAME}..."
+			start_daemon
+		fi
 		;;
 
 	stop)
 		if daemon_status; then
-            echo "Stopping ${NAME}..."
-            stop_daemon
-        else
-            echo "${NAME} is not running"
-        fi
+			echo "Stopping ${NAME}..."
+			stop_daemon
+		else
+			echo "${NAME} is not running"
+		fi
 		;;
 	restart)
 		if daemon_status; then
@@ -82,11 +82,11 @@ case $1 in
 		;;
 	status)
 		if daemon_status; then
-		    echo "${NAME} is running"
-		    exit 0
+			echo "${NAME} is running"
+			exit 0
 		else
-		    echo "${NAME} is not running"
-		    exit 1
+			echo "${NAME} is not running"
+			exit 1
 		fi
 		;;
 	*)
