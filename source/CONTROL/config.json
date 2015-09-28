@@ -10,7 +10,7 @@
     "email": "mafredri+adm@gmail.com",
     "website": "http://www.qbittorrent.org/",
     "architecture": "ADM_ARCH",
-    "firmware": "2.2.0"
+    "firmware": "2.4.0"
   },
   "adm-desktop": {
     "app": {
