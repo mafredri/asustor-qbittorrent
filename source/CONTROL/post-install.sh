@@ -6,10 +6,14 @@ else
 	PKG_DIR=$APKG_PKG_DIR
 fi
 
-if [ "$(uname -m)" = "x86_64" ]; then
-	AS_NAS_ARCH="x86-64"
+# Set the NAS ARCH variable
+arch=$(uname -m)
+if [ "$arch" = "x86_64" ]; then
+    AS_NAS_ARCH="x86-64"
+elif [ "$arch" = "armv7l" ]; then
+    AS_NAS_ARCH="arm"
 else
-	AS_NAS_ARCH="i386"
+    AS_NAS_ARCH="i386"
 fi
 
 . "${PKG_DIR}/CONTROL/env.sh"

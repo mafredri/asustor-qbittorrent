@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EIX="eix -*neI --format '<installedversions:NAMEVERSION>' -A"
+EIX="eix -\*neI --format '<installedversions:NAMEVERSION>' -A"
 
 ROOT=$(cd "$(dirname "${0}")" && pwd)
 VERSION=$(<version.txt)
@@ -12,6 +12,7 @@ MERGE=1
 ADM_ARCH=(
     "x86-64:/cross/x86_64-asustor-linux-gnu"
     "i386:/cross/i686-asustor-linux-gnu"
+    "arm:/cross/arm-marvell-linux-gnueabi"
 )
 
 # Set hostname (ssh) from where to fetch the files

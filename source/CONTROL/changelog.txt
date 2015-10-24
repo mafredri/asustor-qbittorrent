@@ -1,4 +1,7 @@
 3.2.3:
+- Add support for ARM
+
+3.2.3:
 - Updated qBittorrent to 3.2.3
 - Updated libtorrent rasterbar to 1.0.6
 
