@@ -2,3 +2,4 @@
 dist/*.apk
 source/GeoIP/*.dat
 build
+.vscode/

@@ -2,15 +2,15 @@
   "general": {
     "package": "qbittorrent",
     "name": "qBittorrent",
-    "version": "APKG_VERSION",
+    "version": "VERSION",
     "depends": [],
     "conflicts": [],
     "developer": "The qBittorrent project",
     "maintainer": "mafredri",
     "email": "mafredri+adm@gmail.com",
     "website": "http://www.qbittorrent.org/",
-    "architecture": "ADM_ARCH",
-    "firmware": "2.4.0"
+    "architecture": "ARCH",
+    "firmware": "FIRMWARE"
   },
   "adm-desktop": {
     "app": {

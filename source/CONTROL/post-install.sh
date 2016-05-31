@@ -40,7 +40,8 @@ case "${APKG_PKG_STATUS}" in
 		;;
 esac
 
-(cd "$PKG_DIR"; for i in $AS_NAS_ARCH/*; do ln -sf "$i" ./; done)
+# Merging of ARCHES disabled.
+# (cd "$PKG_DIR"; for i in $AS_NAS_ARCH/*; do ln -sf "$i" ./; done)
 
 # Install SSL keys (disabled for now...)
 #

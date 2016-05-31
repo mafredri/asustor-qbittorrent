@@ -1,104 +1,81 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-EIX="eix -\*neI --format '<installedversions:NAMEVERSION>' -A"
+[[ -n ${commands[apkg-tools.py]} ]] || {
+	print "Error: could not find apkg-tools.py in path"
+	exit 1
+}
 
-ROOT=$(cd "$(dirname "${0}")" && pwd)
-VERSION=$(<version.txt)
-# Merge i386 and x86-64?
-MERGE=1
+print "Requesting sudo to establish session..."
+sudo echo -n
 
-# This defines the arches available and from where to fetch the files
-# ARCH:PREFIX
-ADM_ARCH=(
-    "x86-64:/cross/x86_64-asustor-linux-gnu"
-    "i386:/cross/i686-asustor-linux-gnu"
-    "arm:/cross/arm-marvell-linux-gnueabi"
+sshc() {
+    ssh ascross 'zsh -s' <<<$@ 2>/dev/null
+}
+
+typeset -A arch_list
+arch_list=(
+    x86-64 /cross/x86_64-asustor-linux-gnu
+    i386 /cross/i686-asustor-linux-gnu
+    arm /cross/armv7a
 )
 
-# Set hostname (ssh) from where to fetch the files
-HOST=asustorx
+script_path=${(%):-%x}
+script_dir_path=${script_path:A:h}
+script_dir_name=${script_dir_path:t}
 
-cd "$ROOT"
+package=${script_dir_name%-apkg}
 
-if [[ ! -d dist ]]; then
-    mkdir dist
-fi
+print "Building $package"
+cd -q $script_dir_path
 
-for arch in "${ADM_ARCH[@]}"; do
-    cross=${arch#*:}
-    arch=${arch%:*}
+version=$(<version.txt)
+firmware=$(<firmware.txt)
 
-    echo "Building ${arch} from ${HOST}:${cross}"
+build_apk='build/apk'
+build_files='build/files'
 
-    # Check package versions
-    packages=$(<packages.txt)
-    echo "# This file is auto-generated." > pkgversions_"$arch".txt
-    for package in $packages; do
-        version=$(ssh ${HOST} "EIX_PREFIX=${cross} ${EIX} ${package}")
-        echo "$version" >> pkgversions_"$arch".txt
-    done
+mkdir -p $build_files
+mkdir -p dist
 
-    WORK_DIR=build/$arch
-    if [ ! -d "$WORK_DIR" ]; then
-        mkdir -p "$WORK_DIR"
-    fi
-    echo "Cleaning out ${WORK_DIR}..."
-    rm -rf "$WORK_DIR"
-    mkdir "$WORK_DIR"
-    chmod 0755 "$WORK_DIR"
+for arch prefix in ${(kv)arch_list}; do
+	[[ -d $build_apk/$arch ]] && rm -r $build_apk
+	mkdir -p $build_apk/$arch
 
-    if [ ${MERGE} -eq 0 ]; then
-        echo "Copying apkg skeleton..."
-        cp -af source/* "$WORK_DIR"
-    fi
+	print "Copying APK skeleton"
+	rsync -a source/ $build_apk/$arch
 
-    echo "Rsyncing files..."
-    for file in $(<files.txt); do
-        FILEDIR=$(dirname "$file")
-        FILEPATH=${FILEDIR#/usr}
-        if [ ! -d "${WORK_DIR}${FILEPATH}" ]; then
-            mkdir -p "${WORK_DIR}${FILEPATH}"
-        fi
-        rsync -ra ${HOST}:"${cross}${file}*" "${WORK_DIR}${FILEPATH}/"
-    done
+    files=(${(@n)$(<files.txt)})
+    pfiles=($prefix$^files)
 
-    if [ ${MERGE} -eq 0 ]; then
-        echo "Finalizing..."
-        echo "Setting version to ${VERSION}"
-        sed -i '' -e "s^ADM_ARCH^${arch}^" -e "s^APKG_VERSION^${VERSION}^" "$WORK_DIR"/CONTROL/config.json
+    remote_files=(${(@n)$(sshc ls $pfiles)})
 
-        echo "Building APK..."
-        # APKs require root privileges, make sure priviliges are correct
-        sudo chown -R 0:0 "$WORK_DIR"
-        sudo scripts/apkg-tools.py create "$WORK_DIR" --destination dist/
-        sudo chown -R "$(whoami)" dist
+    {
+        sshc ROOT=$prefix equery b ${remote_files/$prefix/} | sort | uniq > pkgversions_$arch.txt &&
+        print "Wrote pkgversions_$arch.txt" || print "Failed writing pkgversions_$arch.txt"
+    } &!
 
-        # Reset permissions on working directory
-        sudo chown -R "$(whoami)" "$WORK_DIR"
+    rsync -a --relative ascross:"$pfiles" $build_files 2>/dev/null &&
+    print "Fetched files for $arch" || print "Failed fetching files for $arch"
 
-        echo "Done!"
-    fi
+    print "Copying $arch files to $build_apk/$arch..."
+    rsync -a $build_files$prefix/ $build_apk/$arch
 
+	print "Finalizing..."
+	print "Setting version:$version and arch:$arch"
+	sed -i '' \
+		-e "s^ARCH^${arch}^" \
+		-e "s^VERSION^${version}^" \
+		-e "s^FIRMWARE^${firmware}^" \
+		$build_apk/$arch/CONTROL/config.json
+
+	echo "Building APK..."
+	# APKs require root privileges, make sure priviliges are correct
+	sudo chown -R 0:0 $build_apk/$arch
+	sudo apkg-tools.py create $build_apk/$arch --destination dist/
+	sudo chown -R "$(whoami)" dist
+
+	# Reset permissions on working directory
+	sudo chown -R "$(whoami)" $build_apk/$arch
 done
 
-if [ ! ${MERGE} -eq 0 ]; then
-    WORK_DIR=build
-
-    echo "Copying apkg skeleton..."
-    cp -af source/* $WORK_DIR
-
-    echo "Finalizing..."
-    echo "Setting version to ${VERSION}"
-    sed -i '' -e "s^ADM_ARCH^any^" -e "s^APKG_VERSION^${VERSION}^" $WORK_DIR/CONTROL/config.json
-
-    echo "Building APK..."
-    # APKs require root privileges, make sure priviliges are correct
-    sudo chown -R 0:0 $WORK_DIR
-    sudo scripts/apkg-tools.py create $WORK_DIR --destination dist/
-    sudo chown -R "$(whoami)" dist
-
-    # Reset permissions on working directory
-    sudo chown -R "$(whoami)" $WORK_DIR
-
-    echo "Done!"
-fi
+print "Thank you, come again!"
