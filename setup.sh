@@ -38,7 +38,7 @@ mkdir -p $build_files
 mkdir -p dist
 
 for arch prefix in ${(kv)arch_list}; do
-	[[ -d $build_apk/$arch ]] && rm -r $build_apk
+	[[ -d $build_apk/$arch ]] && rm -r $build_apk/$arch
 	mkdir -p $build_apk/$arch
 
 	print "Copying APK skeleton"
