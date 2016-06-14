@@ -1,0 +1,52 @@
+---
+ssh: ascross
+
+package: qbittorrent
+name: qBittorrent
+version: 3.3.4
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    depends: []
+    conflicts: []
+    developer: "The qBittorrent project"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    website: "http://www.qbittorrent.org"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  adm-desktop:
+    app:
+      port: 8181
+      protocol: "http"
+      type: "custom"
+      url: "/"
+    privilege:
+      accessible: "users"
+      customizable: true
+  register:
+    symbolic-link:
+      /bin:
+        - "qbittorrent-nox"
+    boot-priority:
+      start-order: 20
+      stop-order: 80
+    port:
+      - 8181
+
+files:
+  - /usr/bin/qbittorrent-nox
+  - /usr/lib/libboost_system.so*
+  - /usr/lib/libQt5Solutions_LockedFile-2.4.so*
+  - /usr/lib/libQt5Solutions_SingleApplication-2.6.so*
+  - /usr/lib/libQt5Core.so*
+  - /usr/lib/libQt5Network.so*
+  - /usr/lib/libQt5Concurrent.so*
+  - /usr/lib/libQt5Xml.so*
+  - /usr/lib/libtorrent-rasterbar.so*
+  - /usr/lib/libpcre16.so*
