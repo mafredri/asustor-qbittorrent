@@ -20,8 +20,6 @@ CHUID=${USER}:${GROUP}
 start_daemon() {
 	# Set umask to create files with world r/w
 	umask 0
-
-	export LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 	start-stop-daemon -S --quiet --background --make-pidfile --pidfile ${PIDFILE} --chuid "${CHUID}" --user "${USER}" --exec ${DAEMON} -- ${OPTS}
 }
 

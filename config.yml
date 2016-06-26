@@ -3,21 +3,21 @@ ssh: ascross
 
 package: qbittorrent
 name: qBittorrent
-version: 3.3.4
+version: 3.3.4-r1
 architecture: ""
 firmware: 2.6.0
 
 config:
   general:
+    developer: "The qBittorrent project"
+    website: "http://www.qbittorrent.org"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
     package: "PACKAGE"
     name: "NAME"
     version: "VERSION"
-    depends: []
-    conflicts: []
-    developer: "The qBittorrent project"
-    maintainer: "mafredri"
-    email: "mafredri+adm@gmail.com"
-    website: "http://www.qbittorrent.org"
     architecture: "ARCHITECTURE"
     firmware: "FIRMWARE"
   adm-desktop:

@@ -1,3 +1,7 @@
+3.3.4-r1:
+- Link qbittorrent-nox to path
+- Use runpath with exectuables
+
 3.3.4:
 - Update qBittorrent to latest version
 - Switch from Qt4 to Qt5

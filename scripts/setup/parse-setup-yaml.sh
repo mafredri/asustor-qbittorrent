@@ -21,6 +21,11 @@ fi
 
 # Parse configuration into global vars
 for key in $(yaml keys); do
+	if [[ $key =~ [-] ]]; then
+		print "Found unsafe config key: $key, exiting..."
+		exit 1
+	fi
+
 	case $(yaml get-type $key) in
 		sequence)
 			typeset -g -a "$conf_prefix$key"

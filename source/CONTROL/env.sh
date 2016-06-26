@@ -1,8 +1,5 @@
 #!/bin/sh
 
-PACKAGE=qbittorrent
-PKG_DIR=/usr/local/AppCentral/${PACKAGE}
-
 USER=admin
 GROUP=administrators
 HOME=$(getent passwd "${USER%:*}" | cut -d ':' -f 6)

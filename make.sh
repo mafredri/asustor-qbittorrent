@@ -39,11 +39,14 @@ build_arch() {
 	log "Copying APK skeleton"
 	rsync -a source/ $build_apk/$arch
 
-	site_package_files=( $(get_site_packages $ssh_host $prefix "$config_site_packages") )
-	files=(
-		$prefix$^config_files
-		$prefix$^site_package_files
-	)
+	typeset -a files
+
+	(( ${#config_files} )) && files+=( $prefix$^config_files )
+
+	if (( ! ${#files} )); then
+		log "No files found? Aborting..."
+		continue
+	fi
 
 	write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
 
