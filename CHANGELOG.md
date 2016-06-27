@@ -1,3 +1,8 @@
+3.3.5:
+* Update qBittorrent
+* Update qt
+* Since qBittorrent requires GCC 4.8 or above, libstdc++ from GCC 4.9.3 is now bundled with both i386 and x86_64 releases. This is not required for the ARM platform since it seems to ship with support for GCC 4.8 out of the box.
+
 3.3.4-r1:
 * Link qbittorrent-nox to path
 * Use runpath with exectuables
