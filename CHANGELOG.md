@@ -1,3 +1,6 @@
+3.3.6:
+* Update qBittorrent
+
 3.3.5:
 * Update qBittorrent
 * Update qt
