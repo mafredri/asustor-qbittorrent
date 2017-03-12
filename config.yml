@@ -3,7 +3,7 @@ ssh: ascross
 
 package: qbittorrent
 name: qBittorrent
-version: 3.3.6
+version: 3.3.11
 firmware: 2.6.0
 
 config:
@@ -53,3 +53,4 @@ files:
   - /usr/lib/libQt5Xml.so*
   - /usr/lib/libtorrent-rasterbar.so*
   - /usr/lib/libpcre16.so*
+  - /usr/lib/libGeoIP.so*
