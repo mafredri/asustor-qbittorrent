@@ -1,3 +1,6 @@
+3.3.12:
+* Update qBittorrent to 3.3.12
+
 3.3.11:
 * Update qBittorrent to 3.3.11
 * Update libtorrent rasterbar to 1.0.11
