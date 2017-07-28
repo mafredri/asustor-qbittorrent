@@ -7,3 +7,7 @@ else
 fi
 
 . "${PKG_DIR}/CONTROL/env.sh"
+
+rm -rf "${CONFIG}"
+
+exit 0

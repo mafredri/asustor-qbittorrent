@@ -6,12 +6,13 @@ else
 	PKG_DIR=$APKG_PKG_DIR
 fi
 
-. "${PKG_DIR}/CONTROL/env.sh"
 
 case "${APKG_PKG_STATUS}" in
 	install)
 		;;
 	upgrade)
+		. "${PKG_DIR}/CONTROL/env.sh"
+
 		# Back up qBittorrent configuration
 		if [ -d "${CONFIG}" ]; then
 			mkdir "${APKG_TEMP_DIR}/config"
@@ -21,3 +22,5 @@ case "${APKG_PKG_STATUS}" in
 	*)
 		;;
 esac
+
+exit 0

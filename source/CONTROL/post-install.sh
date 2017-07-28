@@ -38,3 +38,5 @@ esac
 #     echo "WebUI\\HTTPS\\Certificate=\"@ByteArray($(cat ${CONFIG}/ssl/server.crt))\"" >> ${CONFIG}/qBittorrent.conf
 #     echo "WebUI\\HTTPS\\Key=\"@ByteArray($(cat ${CONFIG}/ssl/server.key))\"" >> ${CONFIG}/qBittorrent.conf
 # fi
+
+exit 0
