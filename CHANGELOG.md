@@ -1,3 +1,7 @@
+3.3.14:
+* Update qBittorrent to 3.3.14
+* Fix for ADM 3.0
+
 3.3.12:
 * Update qBittorrent to 3.3.12
 

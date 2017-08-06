@@ -1,7 +1,7 @@
 dev-libs/boost-1.63.0
 dev-libs/double-conversion-2.0.1
 dev-libs/geoip-1.6.11
-dev-libs/libpcre-8.40-r1
+dev-libs/libpcre-8.41
 dev-qt/qtconcurrent-5.7.1
 dev-qt/qtcore-5.7.1-r3
 dev-qt/qtlockedfile-2.4.1_p20150629
@@ -9,4 +9,4 @@ dev-qt/qtnetwork-5.7.1
 dev-qt/qtsingleapplication-2.6.1_p20150629
 dev-qt/qtxml-5.7.1
 net-libs/libtorrent-rasterbar-1.0.11
-net-p2p/qbittorrent-3.3.13-r0
+net-p2p/qbittorrent-3.3.14-r0
