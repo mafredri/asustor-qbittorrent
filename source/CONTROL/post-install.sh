@@ -23,7 +23,7 @@ case "${APKG_PKG_STATUS}" in
 		# Restore previous qBittorrent configuration if it exists
 		if [ -d "${APKG_TEMP_DIR}/config" ]; then
 			ensure_config_dir
-		    rsync -a "${APKG_TEMP_DIR}/config/" "${CONFIG}/"
+			rsync -a "${APKG_TEMP_DIR}/config/" "${CONFIG}/"
 		fi
 		;;
 	*)

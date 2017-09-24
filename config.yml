@@ -3,7 +3,7 @@ ssh: ascross
 
 package: qbittorrent
 name: qBittorrent
-version: 3.3.14
+version: 3.3.16
 firmware: 2.6.0
 
 config:
