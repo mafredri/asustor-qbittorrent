@@ -1,3 +1,8 @@
+4.0.2:
+* Update qBittorrent to 4.0.2
+* Update libtorrent rasterbar to 1.1.5
+* Update libraries
+
 3.3.16:
 * Update qBittorrent to 3.3.16
 
