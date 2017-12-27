@@ -1,3 +1,7 @@
+4.0.3:
+* Update qBittorrent to 4.0.3
+* Fixes logo on login page
+
 4.0.2:
 * Update qBittorrent to 4.0.2
 * Update libtorrent rasterbar to 1.1.5
