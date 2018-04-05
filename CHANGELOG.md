@@ -1,3 +1,6 @@
+4.0.4:
+* Update qBittorrent to 4.0.4
+
 4.0.3:
 * Update qBittorrent to 4.0.3
 * Fixes logo on login page
